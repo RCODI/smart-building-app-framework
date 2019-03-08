@@ -1,0 +1,30 @@
+{
+  "name": "points",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^1.3.0",
+    "app-root-path": "^2.1.0",
+    "appmetrics-dash": "^4.0.0",
+    "axios": "^0.18.0",
+    "compression": "^1.7.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "driver.js": "^0.8.1",
+    "express": "~4.16.0",
+    "firebase": "^5.7.0",
+    "firebase-admin": "^7.0.0",
+    "firebaseui": "^3.4.1",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "json-stringify": "^1.0.0",
+    "kue": "^0.11.6",
+    "morgan": "~1.9.0",
+    "node-gyp": "^3.8.0",
+    "querystring": "^0.2.0",
+    "winston": "^3.2.1"
+  }
+}

@@ -1,0 +1,396 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title mySmartE v1.1
+    script(src='https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js')
+    script(src='https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js')
+    script(src='https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js')
+    script(src='https://www.gstatic.com/firebasejs/5.7.0/firebase-auth.js')
+    script(src='https://d3js.org/d3.v4.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+    script(data-require='bootstrap@*', data-semver='3.2.0', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.js')
+    script(data-require='jqueryui@*', data-semver='1.10.0', src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(data-require='jqueryui@*', data-semver='1.10.0', rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css')
+    link(data-require='bootstrap@*', data-semver='3.2.0', rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Noto+Sans')
+    link(type='text/css', rel='stylesheet', href='https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css')
+  body
+    .wrapper
+      #header
+        #hourContainer
+          #clockTitle Time
+          #hourminute
+          #ampm
+        .currentModeDisplay
+          #currentTempContainer
+            #currentTempHeader 
+              div(style="text-align: right; width: 95%;") Current temp.
+            #currentTemp
+              #temp
+          #currentModeDisplayContainer
+            #currentModeDisplay •••
+            #currentOverride
+              div Override
+            #currentModeHeader 
+              div Current mode
+        #actionMessagesContainer
+          #actionMessages
+        #generalMessagesContainer
+          #generalMessages
+      .leftSideBar      
+        img#movingGif(src='/images/leaves.gif')
+        // Trigger/Open The Modal
+        button#btnmodl
+        // The Modal
+        #myModal.modal
+          // Modal content
+          #modal-content
+            video#aboutVideo(controls muted)
+                source(src='/videos/smart.mov', type='video/mp4')
+            video#alexaImg(controls muted)
+                source(src='/videos/alexa.mov', type='video/mp4')
+            img#guideImg(src='/images/gui.jpg')
+            img#rulesImg(src='/images/test.gif')
+            #surveyContainer
+              #surveyTitleContainer
+                div Weekly Feedback Survey
+              form#survey(name='survey', method='post')
+                #question1Container
+                  .questionTitleContainer
+                    div.questionMain Question 1/4
+                    div How satisfied are you with the number of points you have earned this week?
+                  #question1OptionsContainer
+                    #question1Error Please select an option
+                    input.q1(type='radio', name='satisfaction', id="sat1", value="unsatisfied", required='')
+                    label.labelOption1(for='sat1')
+                      img#satBad.surveyImg(src="/images/surveybad.png")
+                      img#satBadColored.surveyImg(src="/images/surveybadcolored.png")
+                      div.optionText I hoped to collect more points.
+                    input.q1(type='radio', name='satisfaction', id="sat2", value="neutral", required='')
+                    label.labelOption1(for='sat2')
+                      img#satPlain.surveyImg(src="/images/surveyplain.png")
+                      img#satPlainColored.surveyImg(src="/images/surveyplaincolored.png")
+                      div.optionText I do not really care that much.
+                    input.q1(type='radio', name='satisfaction', id="sat3", value="satisfied", required='')   
+                    label.labelOption1(for='sat3')
+                      img#satGood.surveyImg(src="/images/surveygood.png")
+                      img#satGoodColored.surveyImg(src="/images/surveygoodcolored.png")
+                      div.optionText I have achieved more points than I had expected.
+                #question2Container
+                  .questionTitleContainer
+                    div.questionMain Question 2/4
+                    div Based on your points this week, how many points do you expect to collect next week?
+                  #question2OptionsContainer
+                    #axisRange
+                      div.axis 0
+                      div.axis 10
+                      div.axis 20
+                      div.axis 30
+                      div.axis 40
+                      div.axis 50
+                      div.axis 60
+                      div.axis 70
+                      div.axis 80
+                      div.axis 90
+                      div.axis 100
+                    input#expectation(type='range', name='expectation', min=0, max=100, step=10, value=30, required='')
+                #question3Container
+                  .questionTitleContainer
+                    div.questionMain Question 3/4
+                    div How comfortable did you feel in terms of temperature last week?
+                  .questionTitleContainer
+                    div#lastHomeText When I was at home this week, most of time I felt:
+                  #question3aOptionsContainer
+                    .inputs3
+                      div.question3Error Please select an option
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeCold", value="cold", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeCool", value="cool", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeSlightlyCool", value="slightly cool", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeNeutral", value="neutral", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeSlightlyWarm", value="slightly warm", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeWarm", value="warm", required='')
+                      input.q3a.multiple(type='radio', name='lastHome', id="homeHot", value="hot", required='')
+                      label#homeColdLabel.multipleLabel.cold(for='homeCold') Cold
+                      label#homeCoolLabel.multipleLabel.cool(for='homeCool') Cool
+                      label#homeSlightlyCoolLabel.multipleLabel.slightlyCool(for='homeSlightlyCool') Slightly Cool
+                      label#homeNeutralLabel.multipleLabel.neutral(for='homeNeutral') Neutral
+                      label#homeSlightlyWarmLabel.multipleLabel.slightlyWarm(for='homeSlightlyWarm') Slightly Warm
+                      label#homeWarmLabel.multipleLabel.warm(for='homeWarm') Warm
+                      label#homeHotLabel.multipleLabel.hot(for='homeHot') Hot
+                  .questionTitleContainer
+                    div When I was in bed and sleeping, most of the time I felt:
+                  #question3bOptionsContainer
+                    .inputs3
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepCold", value="cold", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepCool", value="cool", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepSlightlyCool", value="slightly cool", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepNeutral", value="neutral", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepSlightlyWarm", value="slightly warm", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepWarm", value="warm", required='')
+                      input.q3b.multiple(type='radio', name='lastSleep', id="sleepHot", value="hot", required='')
+                      label#sleepColdLabel.multipleLabel.cold(for='sleepCold') Cold
+                      label#sleepCoolLabel.multipleLabel.cool(for='sleepCool') Cool
+                      label#sleepSlightlyCoolLabel.multipleLabel.slightlyCool(for='sleepSlightlyCool') Slightly Cool
+                      label#sleepNeutralLabel.multipleLabel.neutral(for='sleepNeutral') Neutral
+                      label#sleepSlightlyWarmLabel.multipleLabel.slightlyWarm(for='sleepSlightlyWarm') Slightly Warm
+                      label#sleepWarmLabel.multipleLabel.warm(for='sleepWarm') Warm
+                      label#sleepHotLabel.multipleLabel.hot(for='sleepHot') Hot
+                  .questionTitleContainer
+                    div When I returned home from away, inside the house it felt: 
+                  #question3cOptionsContainer
+                    .inputs3
+                      input.q3c.multiple(type='radio', name='lastAway', id="awayCold", value="cold", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awayCool", value="cool", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awaySlightlyCool", value="slightly cool", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awayNeutral", value="neutral", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awaySlightlyWarm", value="slightly warm", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awayWarm", value="warm", required='')
+                      input.q3c.multiple(type='radio', name='lastAway', id="awayHot", value="hot", required='')
+                      label#awayColdLabel.multipleLabel.cold(for='awayCold') Cold
+                      label#awayCoolLabel.multipleLabel.cool(for='awayCool') Cool
+                      label#awaySlightlyCoolLabel.multipleLabel.slightlyCool(for='awaySlightlyCool') Slightly Cool
+                      label#awayNeutralLabel.multipleLabel.neutral(for='awayNeutral') Neutral
+                      label#awaySlightlyWarmLabel.multipleLabel.slightlyWarm(for='awaySlightlyWarm') Slightly Warm
+                      label#awayWarmLabel.multipleLabel.warm(for='awayWarm') Warm
+                      label#awayHotLabel.multipleLabel.hot(for='awayHot') Hot
+                #question4Container
+                  .questionTitleContainer
+                    div.questionMain Question 4/4
+                    div Did you have any problems with our smart technologies? If yes, please tell us what you wanted to but could not do at least once? 
+                  #question4aOptionsContainer
+                    table(style='width:100%')
+                      tbody
+                        tr
+                          td 
+                            input#problem1(type='checkbox', name="problems", value="comparing points")
+                          td 
+                            label#problem1Label(for="problem1") 
+                              | I had difficulty comparing my points between current and last week in the app mysmartE.
+                        tr
+                          td
+                            input#problem2(type='checkbox', name="problems", value="setting schedule")
+                          td
+                            label#problem2Label(for="problem2")
+                              | I had difficulty setting home/away/sleep schedule in mysmartE.
+                        tr
+                          td
+                            input#problem3(type='checkbox', name="problems", value="changing setpoints")
+                          td
+                            label#problem3Label(for="problem3")
+                              | I had difficulty changing the setpoints in my schedule in mysmartE.
+                        tr
+                          td
+                            input#problem4(type='checkbox', name="problems", value="overriding mode") 
+                          td
+                            label#problem4Label(for="problem4")
+                              | I had difficulty overriding my mode in mysmartE.
+                        tr
+                          td
+                            input#problem5(type='checkbox', name="problems", value="overriding temperature")
+                          td
+                            label#problem5Label(for="problem5")
+                              | I had difficulty overriding my temperature in my smartE.
+                        tr
+                          td
+                            input#problem6(type='checkbox', name="problems", value="alexa understanding")
+                          td
+                            label#problem6Label(for="problem6")
+                              | I had difficulty making Alexa understand me.
+                        tr
+                          td
+                            input#problem7(type='checkbox', name="problems", value="alexa answering")
+                          td
+                            label#problem7Label(for="problem7")
+                              | I had difficulty making Alexa answer me back.
+                    label#problem8Label(for="problem8")
+                      | Anything else? Please tell us where you had problems 
+                      input#problem8(type='text', name="problems", placeholder=" ")
+
+                #submitButtonContainer
+                  button#submitButton(type="submit", value="Submit")
+                    | Submit
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+        #currentModeModule
+          #currentModeText YOUR THERMOSTAT
+        #homeContainer
+          button#scheduleButton.currentModeButton(name='currentMode', value='schedule') Schedule
+        #asleepContainer
+          button#overrideButton.currentModeButton(name='currentMode', value='override') Override
+        .currentTemperatureDisplay
+          #currentTemperatureDisplayContainer
+            button#currentTemperatureDisplay •••
+        #controlContainer
+          #setCancelContainer
+            #setButtonContainer
+              button#setButton(value='set') Set
+            #cancelButtonContainer
+              button#cancelButton(value='cancel') Cancel
+          #controlButtonsContainer SET EACH MODE
+          #Container1
+            button#currentStatus0.currentStateButton(value='all', hidden='') ALL
+          #Container2
+            button#currentStatus1.currentStateButton(value='home') Home
+          #Container3
+            button#currentStatus2.currentStateButton(value='away') Away
+          #Container4
+            button#currentStatus3.currentStateButton(value='sleep') Sleep
+          #XContainer
+            button#XButton x
+          #setpointsContainer
+            #setpointDetailContainer
+              #setpointInfo
+                #dinamicSetpointTextContainer
+                  p
+                    | Heat at  
+                    span#detailHeat.start-hour.heat_text
+                  p
+                    | Cool at 
+                    span#detailCool.end-hour.cool_text
+              #setpoint
+                .multi-range(style='height: 80%; width: 100%;')
+            #setpointAllContainer
+              #yourSetpointsText2(hidden='') Your Setpoints:
+              #colorHomeContainer.colorAllContainer(hidden='')              
+              #colorSleepContainer.colorAllContainer(hidden='')
+              #colorAwayContainer.colorAllContainer(hidden='')
+              #homeInfo.dinamicSetpointTextContaier
+                p
+                  | Heat at 
+                  span#heat_home.heat_text
+                p
+                  | Cool at 
+                  span#cool_home.cool_text
+
+              #awayInfo.dinamicSetpointTextContaier
+                p
+                  | Heat at 
+                  span#heat_away.heat_text
+                p
+                  | Cool at 
+                  span#cool_away.cool_text
+              #sleepInfo.dinamicSetpointTextContaier
+                p
+                  | Heat at 
+                  span#heat_sleep.heat_text
+                p
+                  | Cool at 
+                  span#cool_sleep.cool_text
+          #weekdayContainer.sliderContainer
+            #weekdaySliderText Weekday
+            .amSliderText am
+            .pmSliderText pm
+          #weekendContainer.sliderContainer
+            #weekendSliderText Weekend
+            .amSliderText am
+            .pmSliderText pm
+        #overrideContainer(style="z-index:1;")
+          #XContainer2
+            button#XButton2 x
+          #overrideButtonsText.overrideDivText SET YOUR MODE
+          #overrideHomeButtonContainer
+            button#override_status_home.overrideStatusButton(value='home') Home
+          #overrideAwayButtonContainer
+            button#override_status_away.overrideStatusButton(value='away') Away
+          #overrideSleepButtonContainer
+            button#override_status_sleep.overrideStatusButton(value='sleep') Sleep
+          #overrideSliderText.overrideDivText SET YOUR TEMPERATURE
+          #overrideSetpointContainer
+          #overrideSetpointTextContainer
+            #overrideSetpointText
+              p 
+                | Heat at 
+                span#overrideHeat.heat_text
+              p
+                | Cool at 
+                span#overrideCool.cool_text
+          #overrideSetpoint
+            .multi-range(style='height: 80%; width: 100%;')
+          #overrideCancelOverrideButtonText.overrideDivText Override starts now and will be active indefinitely until you cancel it.
+          #overrideCancelOverrideButtonContainer
+            button#cancel_override(value='cancel') Cancel
+          #overridePanelContainer
+            #overridePanel
+        #additionalButtonsContainer
+          #guidelinesButtonContainer
+            button#guidelinesButton Guidelines
+          #smarteButtonContainer
+            button#mySmarteButton MySmartE Help
+          #alexaButtonContainer
+            button#alexaButton Alexa Help
+      .rightSideContent
+        #purdueContainer
+          #purdue &#xa9; Purdue University 2019
+        .communityTab(style='display: none;')
+          button.tabButton Your community
+        .personalTab(style='display: none;')
+          button.tabButton Personal
+        #communityContainer(style='display: none;')
+          #controlButtons(style='display: none;')
+            #customButtons
+              #showAllContainer
+                button#showAllButton Show All
+              #myPeersContainer
+                button#myPeersButton My Peers
+            #fixedButtons
+              #kiloWattContainer
+                button#kiloWattButton kWh
+              #currencyContainer
+                button#currencyButton $
+              #pointsContainer
+                button#pointsButton points
+              #weekContainer
+                button#weekButton week
+              #monthContainer
+                button#monthButton month
+          #chart
+          .slideContainer
+            #slideTag1 JAN
+            #slideTag2 FEB
+            #slideTag3 MAR
+            #slideTag4 APR
+            #slideTag5 MAY
+            #slideTag6 JUN
+            #slideTag7 JUL
+            #slideTag8 AUG
+            #slideTag9 SEP
+            #slideTag10 OCT
+            #slideTag11 NOV
+            #slideTag12 DEC
+            #rangeContainer
+              input#rangeInput(type='range', min='1', max='12', step='1')
+          .slideContainer2
+            #slidersTags
+              #slideTag13 MON
+              #slideTag14 TUE
+              #slideTag15 WED
+              #slideTag16 THU
+              #slideTag17 FRI
+              #slideTag18 SAT
+              #slideTag19 SUN
+            #rangeContainer2
+              input#rangeInput2(type='range', min='1', max='7', step='1')
+        #personalContainer
+          #totalConsumption
+            #totalConsumptionMeter
+          #axisContainer
+          #homePointsRemaining
+          #homePoints
+          #awayPointsRemaining
+          #awayPoints
+          #sleepPointsRemaining
+          #sleepPoints
+          #yourPointsContainer
+            #yourPoints YOUR POINTS
+          #controlButtonsPersonalProgress
+            #lastWeekContainer
+              button#lastWeekButton Last week 
+            #thisWeekContainer
+              button#thisWeekButton This week 
+          #leftLine      
+          #rightLine
+    script(src='/javascripts/twoHandleSlider.js')
+    script(src='/javascripts/main.js')
