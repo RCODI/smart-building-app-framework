@@ -1,11 +1,8 @@
+
 # smart-building-app-framework
 
 Date: April 19, 2018
 Version of Document: 0.1 
-Authors: Research Center for Open Digital Innovation: Dr. Sabine Brunswicker, Jesús Enrique Aldana Sigoña (PhD student), Juan Camilo Cárdenas Gómez (Developer), Monika Kamma (Graduate Student)
-Github account: https://github.com/RCODI/smart-building-app-framework (Project Github Account with additional project related software code)
-
-
 
 1. MySmartE App – Installation and Overview
 
@@ -89,3 +86,14 @@ Style.css has the css code that controls the appearance of every component on th
 
 For the initial setup, run the command, “npm install “ to install all the dependencies the app requires. To run the app, use the command – nodemon bin/www.
 Both the commands have to be run the same folder as app.js.
+
+3. License in using this code
+
+This code is available under the [GNU license](https://www.gnu.org/licenses/gpl-3.0.en.html).
+> All rights granted under this License are granted for the term of copyright on the Program, and are irrevocable provided the stated conditions are met. This License explicitly affirms your unlimited permission to run the unmodified Program. The output from running a covered work is covered by this License only if the output, given its content, constitutes a covered work. This License acknowledges your rights of fair use or other equivalent, as provided by copyright law.
+
+4. Funding sources and authors
+
+This project was supported by the following National Science Foundation (NSF). 
+Authors: Research Center for Open Digital Innovation: Dr. Sabine Brunswicker, Jesús Enrique Aldana Sigoña (PhD student), Juan Camilo Cárdenas Gómez (Software Developer), Monika Kamma (Graduate Student)
+Github account: https://github.com/RCODI/smart-building-app-framework (Project Github Account with additional project related software code)
