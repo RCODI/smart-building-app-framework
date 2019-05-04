@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/174619126.svg)](https://zenodo.org/badge/latestdoi/174619126)
 
 # smart-building-app-framework
 
@@ -16,7 +17,7 @@ Once you have cloned the repository and installed the dependencies, you’ll hav
 
 After this, you should be able to run the nodejs app in your local environment. A few things to remember: since the code is for a single server-app having multiple apps running at the same time could cause problems with the ecobee requests and the integrity of the jobs because the jobs user request will be executed and processed as many times as server-apps there are running. 
 
-Another important aspect to take into account is the authentication with the different services this app is dependent of. You’ll have to authenticate for the services of Firebase Realtime Database, the Bigquery Data Warehouse and the Ecobee API. For the first two you’ll have to get the .json` files to add to the project. (Once the project is set up you can manage on the credentials for users that will make queries to that project). Think of those as your password using your app as username. For ecobee you’ll have to follow their process of authentication and token’s refreshing, and you can find that here.
+Another important aspect to take into account is the authentication with the different services this app is dependent of. You’ll have to authenticate for the services of Firebase Realtime Database, the Bigquery Data Warehouse and the Ecobee API. For the first two you’ll have to get the .json files to add to the project. (Once the project is set up you can manage on the credentials for users that will make queries to that project). Think of those as your password using your app as username. For ecobee you’ll have to follow their process of authentication and token’s refreshing, and you can find that here.
 
 1.1.1 Initialization
 
